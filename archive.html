@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ㅍast ㅍashion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module">
+      import { fairyDustCursor } from "https://unpkg.com/cursor-effects@latest/dist/esm.js";
+    
+      new fairyDustCursor();
+    </script>
+  </head>
+  <body class="page archive-page">
+    <div class="archive-layout">
+      <!-- 왼쪽 패널 -->
+      <aside class="archive-left-panel">
+        <a class="back-link" href="index.html">← 시작 화면으로</a>
+        <header class="page-heading">
+          <div>
+            <p class="eyebrow">Archive</p>
+            <h1>Vintage Collection</h1>
+            <p class="lead">빈티지 샵에서 실제로 구입한 옷을 모아봤어요.</p>
+          </div>
+        </header>
+        
+        <!-- 아이템 상세정보 영역 -->
+        <div class="archive-detail" id="archive-detail">
+          <p class="archive-detail-placeholder">아이템을 클릭하면 상세정보가 표시됩니다.</p>
+        </div>
+      </aside>
+
+      <!-- 오른쪽 패널 -->
+      <section class="archive-right-panel">
+        <div class="archive-content-wrapper" id="archive-content"></div>
+      </section>
+    </div>
+
+    <!-- 배경음악 -->
+    <audio id="background-music" loop autoplay>
+      <source src="cooked.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script src="data.js"></script>
+    <script src="archive.js"></script>
+    <script>
+      (() => {
+        const bgMusic = document.getElementById("background-music");
+        if (bgMusic) {
+          bgMusic.volume = 0.5;
+          // 브라우저 정책상 자동재생이 차단될 수 있으므로, 사용자 상호작용 후 재생 시도
+          bgMusic.play().catch((err) => {
+            console.log("Background music autoplay failed:", err);
+            // 사용자가 페이지와 상호작용하면 재생 시작
+            document.addEventListener("click", () => {
+              bgMusic.play().catch((err) => {
+                console.log("Background music play failed:", err);
+              });
+            }, { once: true });
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
